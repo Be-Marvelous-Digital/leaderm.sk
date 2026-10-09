@@ -1,0 +1,62 @@
+@bg: #F7F1EA;
+@surface: #FFFCF8;
+@sand: #EFE5DA;
+@ink: #2A211C;
+@dark: #2B211C;
+@dark-2: #3A2E27;
+@terra: #A9583A;
+@terra-dark: #8E4630;
+@terra-light: #C26A49;
+@blush: #F2DDD0;
+@peach: #E8B08F;
+@peach-2: #E0A483;
+@muted: #6B5D53;
+@line: #E3D6C8;
+@line-2: #D9CBBB;
+@line-3: #BFAE9C;
+@faint: #8A837B;
+@green: #4F6B4C;
+@green-bg: #E4EADF;
+@green-ink: #3D5639;
+@green-dot: #5E8C5C;
+@cream-a: rgba(247, 241, 234, .7);
+
+@serif: 'Instrument Serif', Georgia, serif;
+@sans: 'Hanken Grotesk', system-ui, sans-serif;
+
+@ease: cubic-bezier(.2, 0, 0, 1);
+@ease-io: cubic-bezier(.65, 0, .2, 1);
+@max: 1240px;
+
+@desk: ~"(min-width: 900px)";
+@mob: ~"(max-width: 899px)";
+@nav-desk: ~"(min-width: 1100px)";
+@nav-mob: ~"(max-width: 1099px)";
+@sm: ~"(max-width: 639px)";
+@reduced: ~"(prefers-reduced-motion: reduce)";
+
+.eyebrow() {
+  font-size: 12px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.serif() {
+  font-family: @serif;
+  font-weight: 400;
+}
+
+.pill() {
+  display: inline-block;
+  border-radius: 999px;
+  white-space: nowrap;
+  text-align: center;
+  text-decoration: none;
+  transition: background .25s, color .25s, border-color .25s, transform .25s, box-shadow .25s;
+}
+
+.container() {
+  max-width: @max;
+  margin-left: auto;
+  margin-right: auto;
+}

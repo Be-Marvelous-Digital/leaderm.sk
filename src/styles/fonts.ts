@@ -1,0 +1,10 @@
+import '@fontsource/instrument-serif/latin-400.css';
+import '@fontsource/instrument-serif/latin-ext-400.css';
+import '@fontsource/instrument-serif/latin-400-italic.css';
+import '@fontsource/instrument-serif/latin-ext-400-italic.css';
+import '@fontsource/hanken-grotesk/latin-400.css';
+import '@fontsource/hanken-grotesk/latin-ext-400.css';
+import '@fontsource/hanken-grotesk/latin-500.css';
+import '@fontsource/hanken-grotesk/latin-ext-500.css';
+import '@fontsource/hanken-grotesk/latin-600.css';
+import '@fontsource/hanken-grotesk/latin-ext-600.css';

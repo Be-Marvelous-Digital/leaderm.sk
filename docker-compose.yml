@@ -1,0 +1,10 @@
+services:
+  db:
+    image: mariadb:11.4
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: leaderm
+      MARIADB_USER: leaderm
+      MARIADB_PASSWORD: leaderm
+    ports: ["3307:3306"]
+    volumes: ["./sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro"]

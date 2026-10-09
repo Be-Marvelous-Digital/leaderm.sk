@@ -1,0 +1,28 @@
+@import '../../styles/tokens.less';
+
+.list { list-style: none; margin: 0; padding: 0; }
+.row {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr) auto;
+  gap: 8px 16px;
+  align-items: baseline;
+  padding: 20px 12px;
+  border-bottom: 1px solid @line;
+  border-radius: 4px;
+  transition: background .3s, padding .3s;
+}
+.i { font-size: 12px; color: @faint; font-variant-numeric: tabular-nums; }
+.n { font-size: clamp(16px, 1.7vw, 19px); line-height: 1.4; }
+.v { font-family: @serif; font-size: clamp(22px, 2.4vw, 30px); line-height: 1; text-align: right; max-width: min(44vw, 240px); }
+.sand .row:hover { background: @sand; padding-left: 20px; }
+.blush {
+  .row { border-bottom-color: rgba(142, 70, 48, .2); }
+  .row:hover { background: @blush; padding-left: 20px; }
+  .i, .v { color: @terra-dark; }
+}
+.surface {
+  .row { border-bottom-color: rgba(142, 70, 48, .2); }
+  .row:hover { background: @surface; padding-left: 20px; }
+  .i, .v { color: @terra-dark; }
+}
+@media @{reduced} { .row { transition: none; } }

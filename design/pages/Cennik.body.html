@@ -1,0 +1,38 @@
+<!-- Cennik.dc.html — body only. Nav active="cennik" sticky. Footer outer-bg #F7F1EA. Lists = PRICE_B (estetika) and PRICE_A (nehradené) from src/data/site.ts; use shared <PriceList rows tone>. -->
+<section data-screen-label="01 Hero" style="padding:clamp(40px,7vw,88px) 20px clamp(48px,6vw,80px)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(32px,5vw,56px)">
+    <div data-reveal="">Domov / Cenník (breadcrumb)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px 48px;align-items:flex-end;justify-content:space-between">
+      <h1 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(72px,15vw,240px);line-height:.82;letter-spacing:-.045em;margin:0"><span style="display:block;overflow:hidden;padding-bottom:.2em;margin-bottom:-.14em"><span data-reveal="" data-mask="" data-d="80" style="display:block">Cenník<em style="color:#A9583A">.</em></span></span></h1>
+      <p data-reveal="" data-d="200" style="font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:#6B5D53;margin:0;max-width:440px;text-wrap:pretty">Liečba ochorení je pre poistencov Dôvery, VšZP a Union hradená z verejného zdravotného poistenia. Estetické zákroky a výkony na žiadosť pacienta sú spoplatnené podľa cenníka.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <a data-reveal="" data-d="260" href="#estetika" style="padding:12px 20px;border-radius:999px;background:#2A211C;color:#F7F1EA;font-size:15px" style-hover="color:#F7F1EA;background:#A9583A">Estetika a laser</a>
+      <a data-reveal="" data-d="300" href="#nehradene" style="padding:12px 20px;border-radius:999px;border:1.5px solid #2A211C;color:#2A211C;font-size:15px" style-hover="color:#F7F1EA;background:#2A211C">Nehradené výkony</a>
+    </div>
+  </div>
+</section>
+
+<section id="estetika" data-screen-label="02 Estetika" style="padding:0 10px">
+  <div style="background:#F2DDD0;border-radius:clamp(24px,3vw,40px);padding:clamp(48px,7vw,96px) clamp(16px,4vw,56px)">
+    <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px clamp(40px,6vw,96px);align-items:flex-start">
+      <div style="flex:1 1 280px;display:flex;flex-direction:column;gap:20px">
+        <span data-reveal="" style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#8E4630">Cenník B</span>
+        <h2 data-reveal="" style="font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(44px,5.6vw,80px);line-height:.92;letter-spacing:-.03em;margin:0">Estetika <em style="color:#A9583A">a laser</em></h2>
+        <a data-reveal="" href="mailto:…?subject=Estetická konzultácia" style="align-self:flex-start;background:#A9583A;color:#FFFCF8;padding:15px 22px;border-radius:999px;font-weight:600;font-size:15px" style-hover="background:#8E4630;color:#FFFCF8">Dohodnúť konzultáciu</a>
+      </div>
+      <div style="flex:2 1 560px;min-width:0;border-top:1px solid #2A211C"><!-- <PriceList rows={PRICE_B} tone="surface" /> (rows hover bg #FFFCF8, index+price #8E4630) --></div>
+    </div>
+  </div>
+</section>
+
+<section id="nehradene" data-screen-label="03 Nehradené" style="padding:clamp(72px,10vw,128px) 20px">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px clamp(40px,6vw,96px);align-items:flex-start">
+    <div style="flex:1 1 280px;display:flex;flex-direction:column;gap:20px">
+      <span data-reveal="" style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#6B5D53">Cenník A</span>
+      <h2 data-reveal="" style="font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(44px,5.6vw,80px);line-height:.92;letter-spacing:-.03em;margin:0">Nehradené <em style="color:#A9583A">výkony</em></h2>
+      <p data-reveal="" style="margin:0;font-size:16px;line-height:1.6;color:#6B5D53;max-width:360px">Výkony, ktoré nehradí verejné zdravotné poistenie, a vyšetrenia nepoistených pacientov.</p>
+    </div>
+    <div style="flex:2 1 560px;min-width:0;border-top:1px solid #2A211C"><!-- <PriceList rows={PRICE_A} tone="sand" /> --></div>
+  </div>
+</section>

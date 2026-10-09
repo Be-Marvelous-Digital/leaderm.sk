@@ -1,0 +1,123 @@
+@import '../../styles/tokens.less';
+
+.hero { padding: clamp(40px, 7vw, 88px) 20px clamp(48px, 6vw, 80px); }
+
+.heroInner {
+  .container();
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 5vw, 56px);
+}
+
+.h1 {
+  .serif();
+  font-size: clamp(48px, 9vw, 140px);
+  line-height: .88;
+  letter-spacing: -.04em;
+  margin: 0;
+  overflow-wrap: break-word;
+  em { color: @terra; }
+}
+
+.maskLine {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .2em;
+  margin-bottom: -.14em;
+  > span { display: block; }
+}
+
+.body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 20px clamp(72px, 10vw, 128px);
+  box-sizing: content-box;
+
+  p, li, dd {
+    font-size: 17px;
+    line-height: 1.7;
+    color: @muted;
+  }
+
+  p { margin: 0 0 16px; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: @ink; font-weight: 600; }
+
+  ul {
+    margin: 0 0 16px;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    position: relative;
+    padding-left: 22px;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: .72em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: @terra;
+    }
+  }
+
+  a {
+    color: @terra;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    overflow-wrap: anywhere;
+    &:hover { color: @terra-dark; }
+  }
+}
+
+.sec {
+  padding: clamp(40px, 5vw, 56px) 0;
+  border-bottom: 1px solid @line;
+  &:first-child { border-top: 1px solid @line; }
+  &:last-child { border-bottom: none; }
+}
+
+.h2 {
+  .serif();
+  font-size: clamp(32px, 3.6vw, 48px);
+  line-height: 1;
+  letter-spacing: -.02em;
+  margin: 0 0 20px;
+  color: @ink;
+}
+
+.note {
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: @blush;
+  color: @terra-dark !important;
+}
+
+.facts {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    display: grid;
+    grid-template-columns: minmax(96px, 140px) minmax(0, 1fr);
+    gap: 4px 24px;
+    padding: 12px 0;
+    border-bottom: 1px solid @line;
+    &:last-child { border-bottom: none; }
+    @media @{sm} { grid-template-columns: 1fr; }
+  }
+
+  dt {
+    .eyebrow();
+    color: @faint;
+    line-height: 1.7;
+    padding-top: 2px;
+  }
+
+  dd { margin: 0; color: @ink; }
+}

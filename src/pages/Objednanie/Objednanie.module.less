@@ -1,0 +1,329 @@
+@import '../../styles/tokens.less';
+
+.h2 {
+  .serif();
+  font-size: clamp(40px, 5.4vw, 76px);
+  line-height: .95;
+  letter-spacing: -.025em;
+  margin: 0;
+}
+
+.btnPrimary, .btnOutline {
+  .pill();
+  flex: 0 1 auto;
+  font-size: clamp(14px, 1.4vw, 16px);
+}
+
+.btnPrimary {
+  background: @terra;
+  color: @surface;
+  padding: 16px clamp(16px, 2.4vw, 26px);
+  font-weight: 600;
+  &:hover { background: @terra-dark; color: @surface; transform: translateY(-2px); }
+}
+
+.btnOutline {
+  border: 1.5px solid @ink;
+  color: @ink;
+  padding: 15px clamp(16px, 2.2vw, 24px);
+  &:hover { background: @ink; color: @bg; }
+}
+
+.hero { padding: clamp(40px, 7vw, 88px) 20px clamp(56px, 7vw, 96px); }
+
+.heroInner {
+  .container();
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+
+.heroText {
+  flex: 1 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.h1 {
+  .serif();
+  font-size: clamp(56px, 9vw, 148px);
+  line-height: .9;
+  letter-spacing: -.035em;
+  margin: 0;
+  em { color: @terra; }
+}
+
+.maskLine {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .2em;
+  margin-bottom: -.14em;
+  > span { display: block; }
+}
+
+.lead {
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.6;
+  color: @muted;
+  margin: 0;
+  max-width: 560px;
+  text-wrap: pretty;
+}
+
+.ctas { display: flex; gap: 8px; flex-wrap: nowrap; }
+
+.phoneWrap {
+  flex: 0 1 320px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.phone {
+  width: 290px;
+  height: 590px;
+  border-radius: 50px;
+  background: @ink;
+  padding: 12px;
+  box-shadow: 0 40px 80px rgba(42, 33, 28, .22);
+  transform: rotate(-4deg);
+}
+
+.screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  overflow: hidden;
+  background: @surface;
+  padding: 64px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.notch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92px;
+  height: 26px;
+  border-radius: 20px;
+  background: @ink;
+}
+
+.phoneSmall { font-size: 12px; color: @muted; }
+
+.phoneName { .serif(); font-size: 28px; line-height: 1.05; }
+
+.queue {
+  background: @sand;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.queueNum { .serif(); font-size: 96px; line-height: .9; }
+
+.phoneBtn {
+  margin-top: auto;
+  background: @terra;
+  color: @surface;
+  border-radius: 999px;
+  padding: 15px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.phoneBtnOutline {
+  border: 1.5px solid @line;
+  border-radius: 999px;
+  padding: 14px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.options { padding: 0 20px clamp(72px, 10vw, 128px); }
+
+.optionsInner {
+  .container();
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.optionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 12px;
+}
+
+.optionDark, .optionLight {
+  border-radius: 32px;
+  padding: clamp(28px, 4vw, 44px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 360px;
+}
+
+.optionDark {
+  background: @dark;
+  color: @bg;
+  .optionEyebrow { color: @peach; }
+  .optionP { color: rgba(247, 241, 234, .8); }
+}
+
+.optionLight {
+  background: @blush;
+  .optionEyebrow { color: @terra-dark; }
+  .optionP { color: @muted; }
+}
+
+.optionEyebrow { .eyebrow(); }
+
+.optionH3 {
+  .serif();
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1;
+  margin: 0;
+}
+
+.optionP { margin: 0; font-size: 17px; line-height: 1.6; }
+
+.optionBtn, .optionBtnOutline {
+  .pill();
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: 15px;
+}
+
+.optionBtn {
+  background: @terra;
+  color: @surface;
+  padding: 15px 24px;
+  font-weight: 600;
+  &:hover { background: @terra-light; color: @surface; }
+}
+
+.optionBtnOutline {
+  border: 1.5px solid @ink;
+  color: @ink;
+  padding: 14px 22px;
+  &:hover { background: @ink; color: @bg; }
+}
+
+.stepsSection { padding: 0 20px clamp(72px, 10vw, 128px); }
+
+.stepsInner {
+  .container();
+  display: flex;
+  flex-direction: column;
+}
+
+.stepsHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid @ink;
+}
+
+.note { font-size: 14px; color: @muted; }
+
+.steps { margin: 0; padding: 0; list-style: none; }
+
+.step {
+  display: grid;
+  grid-template-columns: minmax(64px, 140px) minmax(0, 1fr);
+  gap: 16px 32px;
+  padding: clamp(28px, 4vw, 44px) 0;
+  border-bottom: 1px solid @line;
+  align-items: baseline;
+}
+
+.stepNum {
+  .serif();
+  font-size: clamp(56px, 7vw, 110px);
+  line-height: .8;
+  color: @terra;
+}
+
+.stepH3 {
+  .serif();
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.05;
+  margin: 0;
+}
+
+.stepP {
+  margin: 10px 0 0;
+  font-size: 17px;
+  line-height: 1.6;
+  color: @muted;
+  max-width: 620px;
+}
+
+.faqWrap { padding: 0 10px clamp(72px, 10vw, 128px); }
+
+.faqBox {
+  background: @sand;
+  border-radius: clamp(24px, 3vw, 40px);
+  padding: clamp(56px, 8vw, 112px) clamp(16px, 4vw, 56px);
+}
+
+.faqInner {
+  .container();
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px clamp(40px, 6vw, 96px);
+  align-items: flex-start;
+}
+
+.faqSide {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.faqH2 {
+  .serif();
+  font-size: clamp(44px, 5.6vw, 80px);
+  line-height: .92;
+  letter-spacing: -.03em;
+  margin: 0;
+  em { color: @terra; }
+}
+
+.phoneCard {
+  background: @dark;
+  color: @bg;
+  border-radius: 24px;
+  padding: 24px;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.phoneCardTitle { .serif(); font-size: 28px; line-height: 1.05; }
+
+.phoneCardText { font-size: 14px; color: rgba(247, 241, 234, .75); line-height: 1.5; }
+
+.phoneCardLink {
+  margin-top: 6px;
+  font-size: 15px;
+  color: @peach;
+  &:hover { color: @peach-2; }
+}
+
+.faqList { flex: 2 1 520px; min-width: 0; }

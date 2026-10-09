@@ -1,0 +1,14 @@
+@import '../../styles/tokens.less';
+
+.list {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  color: @muted;
+  a { color: @muted; }
+  a:hover { color: @ink; }
+  [aria-current] { color: @ink; }
+}

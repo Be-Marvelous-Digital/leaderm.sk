@@ -1,0 +1,272 @@
+@import '../../styles/tokens.less';
+
+.reset() { margin: 0; padding: 0; list-style: none; }
+
+.title(@size) {
+  .serif();
+  font-size: @size;
+  line-height: .92;
+  letter-spacing: -.03em;
+  margin: 0;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero { padding: clamp(40px, 7vw, 88px) 20px clamp(56px, 7vw, 96px); }
+
+.heroInner {
+  .container();
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: flex-end;
+}
+
+.heroText {
+  flex: 1 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.h1 {
+  .serif();
+  font-size: clamp(52px, 8vw, 128px);
+  line-height: .92;
+  letter-spacing: -.035em;
+  margin: 0;
+  em { color: @terra; }
+}
+
+.maskLine {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .2em;
+  margin-bottom: -.14em;
+  > span { display: block; }
+}
+
+.lead {
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.6;
+  color: @muted;
+  margin: 0;
+  max-width: 540px;
+  text-wrap: pretty;
+}
+
+.heroImg {
+  flex: 1 1 380px;
+  min-width: 0;
+  height: clamp(440px, 56vw, 720px);
+  border-radius: 999px 999px 32px 32px;
+  overflow: hidden;
+  background: @dark-2;
+}
+
+.portrait {
+  .cover();
+  object-position: 50% 20%;
+}
+
+.statsWrap { padding: 0 20px clamp(72px, 10vw, 128px); }
+
+.stats {
+  .container();
+  margin-top: 0;
+  margin-bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 1px;
+  background: @line;
+  border: 1px solid @line;
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.stat {
+  background: @bg;
+  padding: 28px;
+}
+
+.statNum {
+  .serif();
+  font-size: clamp(56px, 6vw, 88px);
+  line-height: .85;
+}
+
+.statLabel {
+  margin: 12px 0 0;
+  font-size: 15px;
+  color: @muted;
+  line-height: 1.5;
+}
+
+.darkWrap { padding: 0 10px; }
+
+.dark {
+  background: @dark;
+  color: @bg;
+  border-radius: clamp(24px, 3vw, 40px);
+  padding: clamp(56px, 8vw, 112px) clamp(20px, 4vw, 56px);
+}
+
+.darkInner {
+  .container();
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px clamp(40px, 6vw, 96px);
+}
+
+.darkHead { flex: 1 1 300px; }
+
+.eyebrowLight {
+  .eyebrow();
+  color: @cream-a;
+}
+
+.h2Dark {
+  .title(clamp(44px, 5.6vw, 80px));
+  margin-top: 16px;
+  em { color: @peach; }
+}
+
+.career {
+  .reset();
+  flex: 2 1 520px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(247, 241, 234, .25);
+}
+
+.careerRow {
+  display: grid;
+  grid-template-columns: minmax(110px, 180px) minmax(0, 1fr);
+  gap: 8px 32px;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(247, 241, 234, .15);
+  align-items: baseline;
+  &:last-child { border-bottom: none; }
+  @media @{sm} { grid-template-columns: minmax(0, 1fr); }
+}
+
+.year {
+  .serif();
+  font-size: clamp(26px, 2.6vw, 36px);
+  color: @peach;
+}
+
+.careerText {
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.nurse { padding: clamp(72px, 10vw, 128px) 20px; }
+
+.nurseInner {
+  .container();
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(32px, 6vw, 80px);
+  align-items: center;
+}
+
+.nursePhoto {
+  flex: 1 1 340px;
+  min-width: 0;
+  aspect-ratio: 4 / 5;
+  max-height: 560px;
+  border-radius: 32px 32px 999px 999px;
+  overflow: hidden;
+  background: @blush;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.initials {
+  .serif();
+  font-size: clamp(96px, 14vw, 200px);
+  line-height: 1;
+  letter-spacing: -.03em;
+  color: @terra;
+}
+
+.nurseText {
+  flex: 1 1 440px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.eyebrow {
+  .eyebrow();
+  color: @muted;
+}
+
+.h2Big {
+  .title(clamp(44px, 5.6vw, 80px));
+  em { color: @terra; }
+}
+
+.nurseP {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: @muted;
+}
+
+.clinic { padding: 0 20px clamp(72px, 10vw, 128px); }
+
+.clinicInner {
+  .container();
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.clinicHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 48px;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.h2 {
+  .serif();
+  font-size: clamp(40px, 5.4vw, 76px);
+  line-height: .95;
+  letter-spacing: -.025em;
+  margin: 0;
+}
+
+.clinicP {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: @muted;
+  max-width: 420px;
+}
+
+.gallery {
+  .reset();
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 12px;
+}
+
+.galleryItem {
+  height: clamp(280px, 32vw, 440px);
+  border-radius: 28px;
+  overflow: hidden;
+  background: @sand;
+}

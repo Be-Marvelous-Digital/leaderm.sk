@@ -1,0 +1,7 @@
+config/config.php
+node_modules/
+dist/
+dist-ssr/
+.playwright-mcp/
+.DS_Store
+*.log

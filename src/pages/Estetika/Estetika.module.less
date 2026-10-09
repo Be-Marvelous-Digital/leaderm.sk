@@ -1,0 +1,336 @@
+@import '../../styles/tokens.less';
+
+.reset() { margin: 0; padding: 0; list-style: none; }
+
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.btnPrimary, .btnOutline {
+  .pill();
+  flex: 0 1 auto;
+  font-size: clamp(14px, 1.4vw, 16px);
+}
+
+.btnPrimary {
+  background: @terra;
+  color: @surface;
+  padding: 16px clamp(16px, 2.4vw, 26px);
+  font-weight: 600;
+  &:hover { background: @terra-dark; color: @surface; transform: translateY(-2px); }
+}
+
+.btnOutline {
+  border: 1.5px solid @ink;
+  color: @ink;
+  padding: 15px clamp(16px, 2.2vw, 24px);
+  &:hover { background: @ink; color: @bg; }
+}
+
+.hero { padding: clamp(40px, 7vw, 88px) 20px clamp(56px, 7vw, 96px); }
+
+.heroInner {
+  .container();
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 5vw, 56px);
+}
+
+.h1 {
+  .serif();
+  font-size: clamp(60px, 12vw, 200px);
+  line-height: .86;
+  letter-spacing: -.04em;
+  margin: 0;
+  em { color: @terra; }
+}
+
+.maskLine {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .2em;
+  margin-bottom: -.14em;
+  > span { display: block; }
+}
+
+.indent { padding-left: clamp(0px, 10vw, 180px); }
+
+.heroRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 48px;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.lead {
+  flex: 1 1 420px;
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.6;
+  color: @muted;
+  margin: 0;
+  max-width: 600px;
+  text-wrap: pretty;
+}
+
+.ctas { display: flex; gap: 8px; flex-wrap: nowrap; }
+
+.heroImg {
+  height: clamp(320px, 48vw, 620px);
+  border-radius: clamp(24px, 3vw, 40px);
+  overflow: hidden;
+}
+
+.treatments { padding: 0 20px clamp(72px, 10vw, 128px); }
+
+.treatmentsInner {
+  .container();
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 8vw, 112px);
+}
+
+.block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+
+.blockReverse {
+  flex-wrap: wrap-reverse;
+  .blockImg { order: 2; }
+}
+
+.blockImg {
+  flex: 1 1 380px;
+  min-width: 0;
+  aspect-ratio: 4 / 5;
+  max-height: 620px;
+  border-radius: 999px 999px 32px 32px;
+  overflow: hidden;
+}
+
+.archBottom { border-radius: 32px 32px 999px 999px; }
+
+.blockText {
+  flex: 1 1 420px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.num { .serif(); font-size: 22px; color: @terra; }
+
+.blockH2 {
+  .serif();
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: .95;
+  letter-spacing: -.025em;
+  margin: 0;
+}
+
+.blockP { margin: 0; font-size: 18px; line-height: 1.6; color: @muted; }
+
+.prices {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid @line;
+}
+
+.priceRow, .single {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  dt { font-size: 14px; color: @muted; }
+  dd { .serif(); margin: 0 0 0 auto; white-space: nowrap; }
+}
+
+.priceRow {
+  padding: 12px 0;
+  border-bottom: 1px solid @line;
+  &:last-child { border-bottom: 0; }
+  dd { font-size: 32px; }
+}
+
+.single {
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid @line;
+  dd { font-size: 36px; }
+}
+
+.darkWrap { padding: 0 10px; }
+
+.dark {
+  background: @dark;
+  color: @bg;
+  border-radius: clamp(24px, 3vw, 40px);
+  padding: clamp(56px, 8vw, 112px) clamp(20px, 4vw, 56px);
+}
+
+.darkInner {
+  .container();
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 6vw, 64px);
+}
+
+.darkHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 64px;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.darkTitle { flex: 1 1 520px; }
+
+.numLight { .serif(); font-size: 22px; color: @peach; display: inline-block; }
+
+.laserH2 {
+  .serif();
+  font-size: clamp(56px, 9vw, 140px);
+  line-height: .85;
+  letter-spacing: -.04em;
+  margin: 12px 0 0;
+  em { color: @peach; }
+}
+
+.darkLead {
+  flex: 0 1 420px;
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.6;
+  color: rgba(247, 241, 234, .8);
+}
+
+.laserBody {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: flex-start;
+}
+
+.laserImg {
+  flex: 1 1 340px;
+  min-width: 0;
+  height: clamp(300px, 52vw, 600px);
+  border-radius: 999px 999px 32px 32px;
+  overflow: hidden;
+}
+
+.laserCol {
+  flex: 1 1 480px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(247, 241, 234, .16);
+}
+
+.laserList { .reset(); }
+
+.laserRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 20px;
+  padding: clamp(16px, 2vw, 22px) 0;
+  border-bottom: 1px solid rgba(247, 241, 234, .16);
+}
+
+.laserNum { .serif(); font-size: 18px; color: @peach; width: 28px; }
+
+.laserLabel { flex: 1 1 200px; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.35; }
+
+.laserPrice {
+  .serif();
+  font-size: clamp(24px, 2.4vw, 30px);
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.laserNote {
+  margin: 20px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(247, 241, 234, .7);
+}
+
+.more { padding: clamp(72px, 10vw, 128px) 20px; }
+
+.moreInner {
+  .container();
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 7vw, 96px);
+}
+
+.moreH2 {
+  .serif();
+  font-size: clamp(40px, 5vw, 68px);
+  line-height: .95;
+  letter-spacing: -.025em;
+  margin: 0;
+}
+
+.otherWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 64px;
+  > .moreH2 { flex: 1 1 320px; }
+}
+
+.otherList {
+  flex: 2 1 520px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid @ink;
+}
+
+.otherRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 24px;
+  align-items: baseline;
+  padding: 20px 0;
+  border-bottom: 1px solid @line;
+  dt { flex: 1 1 280px; font-size: 18px; }
+  dd { .serif(); margin: 0; font-size: 28px; color: @terra-dark; }
+}
+
+.howWrap { display: flex; flex-direction: column; gap: 28px; }
+
+.steps {
+  .reset();
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 12px;
+}
+
+.step {
+  background: @surface;
+  border: 1px solid @line;
+  border-radius: 28px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  min-height: 240px;
+}
+
+.stepAccent { background: @blush; border: 0; }
+
+.stepNum { .serif(); font-size: 80px; line-height: .75; color: @terra; }
+
+.stepFoot { margin-top: auto; }
+
+.stepTitle { .serif(); font-size: 26px; margin: 0; }
+
+.stepText { font-size: 15px; line-height: 1.5; color: @muted; margin: 6px 0 0; }

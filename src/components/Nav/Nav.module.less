@@ -1,0 +1,175 @@
+@import '../../styles/tokens.less';
+
+.wrap { z-index: 50; top: 0; left: 0; right: 0; }
+.fixed { position: fixed; }
+.sticky { position: sticky; }
+
+.desk, .mob { padding: 20px 20px 0; }
+.desk { pointer-events: none; }
+@media @{nav-mob} { .desk { display: none; } }
+@media @{nav-desk} { .mob { display: none; } }
+
+.shell {
+  pointer-events: auto;
+  max-width: @max;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 8px 8px 8px 18px;
+  border-radius: 999px;
+  background: rgba(255, 252, 248, .55);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(227, 214, 200, .6);
+  transition: background .4s, box-shadow .4s, border-color .4s;
+}
+.scrolled {
+  background: rgba(255, 252, 248, .86);
+  border-color: @line;
+  box-shadow: 0 12px 32px rgba(42, 33, 28, .08);
+}
+.shellMob {
+  position: relative;
+  z-index: 2;
+  gap: 10px;
+  padding: 6px 6px 6px 14px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: @ink;
+  &:hover { color: @ink; }
+}
+.logoMark {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: @terra;
+  color: @surface;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: @serif;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1;
+  padding-bottom: 2px;
+}
+.logoText { font-family: @serif; font-size: 27px; line-height: 1; letter-spacing: -.01em; }
+.logoSmall {
+  gap: 8px;
+  .logoMark { width: 28px; height: 28px; font-size: 19px; }
+  .logoText { font-size: 24px; }
+}
+
+.links { display: flex; gap: 2px; font-size: 15px; align-items: center; }
+.link {
+  color: @ink;
+  padding: 10px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background .25s;
+  &:hover { background: rgba(169, 88, 58, .1); color: @ink; }
+}
+.active { background: rgba(169, 88, 58, .12); font-weight: 600; }
+
+.actions { display: flex; align-items: center; gap: 8px; }
+
+.status {
+  display: flex;
+  align-items: center;
+  border-radius: 999px;
+  background: rgba(255, 252, 248, .7);
+  border: 1px solid @line;
+  font-size: 13px;
+  white-space: nowrap;
+  color: @ink;
+  overflow: hidden;
+  transition: border-color .25s;
+  &:hover { color: @ink; border-color: @terra; }
+}
+.statusLabel { padding: 10px 12px; background: @blush; color: @terra-dark; font-weight: 600; }
+.statusOpen { background: @green-bg; color: @green-ink; }
+.statusTime { padding: 10px 14px 10px 12px; font-variant-numeric: tabular-nums; }
+
+.cta {
+  .pill();
+  background: @ink;
+  color: @bg;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  &:hover { background: @terra; color: @surface; transform: translateY(-1px); }
+}
+
+.mobActions { display: flex; gap: 6px; align-items: center; }
+.ctaMob {
+  .pill();
+  background: @terra;
+  color: @surface;
+  padding: 0 16px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  &:hover { color: @surface; background: @terra-dark; }
+}
+.burger {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: @ink;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.burgerLine { width: 16px; height: 1.5px; background: @bg; transition: transform .3s; }
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: @bg;
+  padding: 96px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  overflow: auto;
+  &[hidden] { display: none; }
+}
+.menuLinks { display: flex; flex-direction: column; }
+.menuLink {
+  font-family: @serif;
+  font-size: 40px;
+  line-height: 1.1;
+  color: @ink;
+  padding: 12px 0;
+  border-bottom: 1px solid @line;
+}
+.menuActive { color: @terra; }
+.menuStatus { align-self: flex-start; }
+.menuCtas { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
+.menuCta {
+  .pill();
+  background: @terra;
+  color: @surface;
+  padding: 18px;
+  font-weight: 600;
+  &:hover { color: @surface; }
+}
+.menuCall {
+  .pill();
+  border: 1.5px solid @ink;
+  color: @ink;
+  padding: 17px;
+  &:hover { color: @ink; }
+}
