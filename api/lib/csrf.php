@@ -19,8 +19,13 @@ function origin_allowed(string $origin, string $host): bool {
     return strcasecmp($originHost, $host) === 0;
 }
 
-function csrf_require(): void {
+/** Kontrola pôvodu bez tokenu – pre prihlásenie (ochrana proti login CSRF). */
+function origin_require(): void {
     $host = $_SERVER['HTTP_X_FORWARDED_HOST'] ?? $_SERVER['HTTP_HOST'] ?? '';
     if (!origin_allowed($_SERVER['HTTP_ORIGIN'] ?? '', $host)) throw new HttpError(403, 'Neplatný pôvod požiadavky.');
+}
+
+function csrf_require(): void {
+    origin_require();
     if (!csrf_valid($_SERVER['HTTP_X_CSRF_TOKEN'] ?? '')) throw new HttpError(403, 'Neplatný bezpečnostný token. Obnovte stránku.');
 }

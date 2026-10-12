@@ -24,3 +24,15 @@ function json_in(): array {
 function client_ip(): string {
     return inet_pton($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0') ?: "\0\0\0\0";
 }
+
+/** Jediný spôsob normalizácie e-mailu – používa ho prihlásenie aj rate limit. */
+function email_norm(string $email): string {
+    if (!mb_check_encoding($email, 'UTF-8')) return '';
+    return mb_strtolower(preg_replace('/^[\s\p{Z}\x{200B}\x{FEFF}]+|[\s\p{Z}\x{200B}\x{FEFF}]+$/u', '', $email) ?? '');
+}
+
+function is_https(): bool {
+    return (!empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !== 'off')
+        || strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https'
+        || (string) ($_SERVER['SERVER_PORT'] ?? '') === '443';
+}

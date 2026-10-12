@@ -1,5 +1,11 @@
 Options -Indexes
 RewriteEngine On
+# API iba cez HTTPS. Presmerovanie (301) by pri POST prehliadač zopakoval ako GET a heslo by
+# už aj tak odišlo nešifrovane – preto požiadavku rovno odmietneme.
+# (Vlastné RewriteEngine On tu vypína dedenie pravidiel z koreňového .htaccess.)
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ - [F,L]
 RewriteRule ^lib/ - [F,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [L,QSA]

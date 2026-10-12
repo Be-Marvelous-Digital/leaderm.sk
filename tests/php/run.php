@@ -7,13 +7,20 @@ require __DIR__ . '/../../api/lib/ratelimit.php';
 require __DIR__ . '/../../api/lib/csrf.php';
 require __DIR__ . '/../../api/lib/auth.php';
 
+// CLI session, aby sa dal testovať celý auth_login / zmena hesla (pred akýmkoľvek výstupom).
+ini_set('session.use_cookies', '0');
+ini_set('session.save_path', sys_get_temp_dir());
+ini_set('session.cache_limiter', '');
+session_start();
+
 $failures = 0; $count = 0;
 function t(string $name, callable $fn): void {
     global $failures, $count; $count++;
+    if (session_status() !== PHP_SESSION_ACTIVE) session_start();   // auth_logout() session ničí
     db()->beginTransaction();
     db()->exec('UPDATE announcements SET deleted_at = NOW() WHERE deleted_at IS NULL');
-    try { $fn(); echo "✓ $name\n"; }
-    catch (Throwable $e) { $failures++; echo "✗ $name: {$e->getMessage()}\n"; }
+    try { $fn(); fwrite(STDOUT, "✓ $name\n"); }
+    catch (Throwable $e) { $failures++; fwrite(STDOUT, "✗ $name: {$e->getMessage()}\n"); }
     finally { db()->rollBack(); }
 }
 function eq($a, $b, string $msg = ''): void {
@@ -22,6 +29,14 @@ function eq($a, $b, string $msg = ''): void {
 function throws(callable $fn, int $status): void {
     try { $fn(); } catch (HttpError $e) { eq($e->status, $status); return; }
     throw new Exception("expected HttpError $status");
+}
+function make_user_with(string $email, string $pw): int {
+    db()->prepare('INSERT INTO users (email, password_hash, name) VALUES (?, ?, ?)')->execute([$email, pw_hash($pw), 'T']);
+    return (int) db()->lastInsertId();
+}
+function as_ip(string $ip): void { $_SERVER['REMOTE_ADDR'] = $ip; }
+function fails(int $n, string $email, string $pw = 'zleheslo'): void {
+    for ($i = 0; $i < $n; $i++) throws(fn() => auth_login($email, $pw), 401);
 }
 function make_user(): int {
     db()->prepare('INSERT INTO users (email, password_hash, name) VALUES (?, ?, ?)')

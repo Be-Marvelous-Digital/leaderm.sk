@@ -12,6 +12,11 @@ $method = $_SERVER['REQUEST_METHOD'];
 $path = '/' . trim(preg_replace('#^.*/api#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), '/');
 
 try {
+    // Druhá poistka k api/.htaccess (ak by hosting .htaccess ignoroval). Lokálne: secure_cookie = false.
+    if ((config()['require_https'] ?? config()['secure_cookie']) && !is_https()) {
+        throw new HttpError(403, 'API je dostupné iba cez HTTPS.');
+    }
+
     if ($method === 'GET' && $path === '/announcement') {
         $a = ann_active();
         header('Cache-Control: public, max-age=60');
@@ -22,6 +27,7 @@ try {
     session_boot();
 
     if ($method === 'POST' && $path === '/auth/login') {
+        origin_require();
         $in = json_in();
         json_out(200, auth_login((string) ($in['email'] ?? ''), (string) ($in['password'] ?? '')));
     }

@@ -9,4 +9,5 @@ return [
     'session_name' => 'ldm_admin',
     'allowed_origins' => ['https://www.leaderm.sk'],
     'secure_cookie' => true,
+    // 'require_https' => true,   // predvolene = secure_cookie; API odmietne HTTP požiadavky
 ];

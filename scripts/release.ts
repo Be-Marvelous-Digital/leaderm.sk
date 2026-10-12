@@ -24,4 +24,4 @@ console.log('release/ pripravený:');
 console.log('  web/      → nahraj do webrootu (web/) vrátane .htaccess');
 console.log('  config/   → nahraj mimo webrootu, premenuj config.sample.php na config.php a vyplň');
 console.log('  bin/      → nahraj mimo webrootu (vytvorenie účtu cez SSH)');
-console.log('  schema.sql → importuj v phpMyAdmin, NENAHRÁVAJ na FTP');
+console.log('  schema.sql → importuj v phpMyAdmin (aj pri aktualizácii – obsahuje migráciu), NENAHRÁVAJ na FTP');

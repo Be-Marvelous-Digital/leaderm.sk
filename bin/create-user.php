@@ -18,6 +18,6 @@ if (isset($opts['password-stdin'])) {
     system('stty -echo'); $pw = trim(fgets(STDIN) ?: ''); system('stty echo'); echo "\n";
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $name === '' || mb_strlen($pw) < 12) { fwrite(STDERR, "Neplatné údaje.\n"); exit(1); }
-db()->prepare('INSERT INTO users (email, password_hash, name) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE password_hash = VALUES(password_hash), name = VALUES(name)')
+db()->prepare('INSERT INTO users (email, password_hash, name) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE password_hash = VALUES(password_hash), name = VALUES(name), session_version = session_version + 1')
     ->execute([$email, pw_hash($pw), $name]);
 echo "Používateľ $email uložený.\n";
