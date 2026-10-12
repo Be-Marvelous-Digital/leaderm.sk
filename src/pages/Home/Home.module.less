@@ -133,6 +133,8 @@
   backdrop-filter: blur(10px);
   &:hover { background: @bg; color: @ink; border-color: @bg; }
 }
+.heroCtaMail { display: none; @media @{desk} { display: inline-block; } }
+.heroCtaTel { @media @{desk} { display: none; } }
 .heroTags {
   display: flex;
   gap: 8px 18px;
@@ -502,9 +504,12 @@
   font-family: @serif;
   font-size: 34px;
   letter-spacing: .02em;
+  overflow: hidden;
 }
+.nurseImg { object-position: 50% 15%; transform: scale(1.6); transform-origin: 50% 18%; }
 .nurseRole { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: @muted; }
 .nurseName { font-family: @serif; font-size: 26px; margin-top: 4px; }
+.nurseBio { margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: @muted; text-wrap: pretty; }
 
 // 07 Pricing
 .pricing { padding: clamp(72px, 10vw, 128px) 20px; }

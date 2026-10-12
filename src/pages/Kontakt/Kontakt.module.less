@@ -202,7 +202,6 @@
 .hoursBox {
   flex: 2 1 520px;
   min-width: 0;
-  border-top: 1px solid @ink;
 }
 
 .hours { .reset(); }
@@ -238,7 +237,9 @@
 
 .time {
   .serif();
-  font-size: clamp(26px, 3vw, 38px);
+  flex: none;
+  white-space: nowrap;
+  font-size: clamp(24px, 3vw, 38px);
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
@@ -255,6 +256,7 @@
   font-weight: 600;
   letter-spacing: .1em;
   text-transform: uppercase;
+  white-space: nowrap;
   box-shadow: 0 1px 0 rgba(142, 70, 48, .12);
 }
 

@@ -190,10 +190,13 @@ export default function Home() {
                 ))}
               </ul>
               <div className={s.nurse}>
-                <div className={s.nurseAvatar} aria-hidden="true">PF</div>
+                <div className={s.nurseAvatar}>
+                  <Img name="sestra" alt="Bc. Patrícia Francisciová" width={1024} height={1536} sizes="88px" className={`${s.cover} ${s.nurseImg}`} />
+                </div>
                 <div>
-                  <div className={s.nurseRole}>Sestra</div>
+                  <div className={s.nurseRole}>Zdravotná sestra</div>
                   <div className={s.nurseName}>Bc. Patrícia Francisciová</div>
+                  <p className={s.nurseBio}>Ošetrovateľstvo na UKF v Nitre, skúsenosti z Nemocnice sv. Lukáša v Galante. Kurzy kineziologického tejpovania a biodermálnych nití.</p>
                 </div>
               </div>
             </div>

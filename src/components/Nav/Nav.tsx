@@ -36,6 +36,7 @@ export function Nav({ active, fixed }: { active: RouteKey; fixed?: boolean }) {
   useEffect(() => {
     if (!menu) return;
     document.body.style.overflow = 'hidden';
+    document.body.dataset.menu = '';
     menuRef.current?.querySelector<HTMLElement>('a')?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -46,6 +47,7 @@ export function Nav({ active, fixed }: { active: RouteKey; fixed?: boolean }) {
     addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = '';
+      delete document.body.dataset.menu;
       removeEventListener('keydown', onKey);
     };
   }, [menu]);

@@ -78,13 +78,13 @@ export default function ONas() {
 
       <section className={s.nurse}>
         <div className={s.nurseInner}>
-          <div className={s.nursePhoto} data-reveal="" aria-hidden="true">
-            <span className={s.initials}>PF</span>
+          <div className={s.nursePhoto} data-reveal="">
+            <Img name="sestra" alt="Bc. Patrícia Francisciová" width={1024} height={1536} sizes="(min-width: 900px) 40vw, 100vw" className={`${s.cover} ${s.nurseImg}`} />
           </div>
           <div className={s.nurseText}>
-            <div className={s.eyebrow} data-reveal="">Sestra</div>
+            <div className={s.eyebrow} data-reveal="">Zdravotná sestra</div>
             <h2 className={s.h2Big} data-reveal="">Bc. Patrícia <em>Francisciová</em></h2>
-            <p className={s.nurseP} data-reveal="">Sestra dermatovenerologickej ambulancie LEADERM.</p>
+            <p className={s.nurseP} data-reveal="">Vyštudovala ošetrovateľstvo na Univerzite Konštantína Filozofa v Nitre a skúsenosti zbierala v Nemocnici sv. Lukáša v Galante, na úrazovej chirurgii, ortopédii aj covidovom oddelení, ako aj v stomatologickej a ortopedickej ambulancii. Dnes je jej hlavným pôsobiskom naša dermatologická ambulancia a absolvovala aj kurzy kineziologického tejpovania a aplikácie biodermálnych nití.</p>
           </div>
         </div>
       </section>

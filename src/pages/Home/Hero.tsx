@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ECAKAREN, MARQUEE, mailto } from '../../data/site';
+import { CONTACT, ECAKAREN, MARQUEE, mailto } from '../../data/site';
 import { Img } from '../../components/Img/Img';
 import { pageReady } from '../../hooks/usePageReady';
 import { useReducedMotion } from '../../hooks/useMediaQuery';
@@ -96,7 +96,7 @@ export function Hero() {
       <div className={s.heroStage}>
         <div ref={frame} className={`${s.heroFrame} ${s[`intro${intro}`]}`}>
           <div className={s.heroImgs}>
-            <img src="/img/kupcova-portret-blur.png" alt="" aria-hidden="true" className={s.heroBlur} fetchPriority="high" />
+            <img src="/img/kupcova-portret-blur.webp" alt="" aria-hidden="true" className={s.heroBlur} fetchPriority="high" />
             <Img name="kupcova-portret" alt="MUDr. Iveta Kupcová" width={1200} height={1500} priority sizes="(min-width: 900px) 60vw, 100vw" className={s.heroImg} />
           </div>
           <div className={s.heroShade} />
@@ -120,7 +120,8 @@ export function Hero() {
               <p data-reveal="" data-d="1350" className={s.heroLead}>MUDr. Iveta Kupcová, dermatovenerológ s atestáciou z klinickej onkológie. Liečba kože, vlasov a nechtov pre deti aj dospelých. Estetika a laser.</p>
               <div data-reveal="" data-d="1450" className={s.heroCtas}>
                 <a href={ECAKAREN.profile} target="_blank" rel="noopener" className={s.heroCtaMain}>Prihlásiť sa do poradia →</a>
-                <a href={mailto('Dopyt z webu')} className={s.heroCtaSub}>Napísať e-mail</a>
+                <a href={mailto('Dopyt z webu')} className={`${s.heroCtaSub} ${s.heroCtaMail}`}>Napísať e-mail</a>
+                <a href={`tel:${CONTACT.tel}`} className={`${s.heroCtaSub} ${s.heroCtaTel}`}>Zavolať</a>
               </div>
               <div data-reveal="" data-d="1550" className={s.heroTags}>
                 <span>Dôvera · VšZP · Union</span><span>Deti aj dospelí</span><span>Do poradia už z domu</span>
