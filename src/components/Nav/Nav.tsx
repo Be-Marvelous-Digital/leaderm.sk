@@ -7,7 +7,7 @@ import s from './Nav.module.less';
 
 function Logo({ small }: { small?: boolean }) {
   return (
-    <a href="/" className={`${s.logo} ${small ? s.logoSmall : ''}`} aria-label="Leaderm – domov">
+    <a href="/" className={`${s.logo} ${small ? s.logoSmall : ''}`}>
       <span className={s.logoMark} aria-hidden="true">L</span>
       <span className={s.logoText}>Leaderm</span>
     </a>
