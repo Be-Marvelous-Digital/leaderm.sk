@@ -10,7 +10,8 @@
     "test:php": "php tests/php/run.php",
     "typecheck": "tsc --noEmit",
     "images": "tsx scripts/images.ts && tsx scripts/og.ts",
-    "favicons": "tsx scripts/favicons.ts"
+    "favicons": "tsx scripts/favicons.ts",
+    "release": "npm run build && tsx scripts/release.ts"
   },
   "dependencies": {
     "@fontsource/hanken-grotesk": "^5.3.0",

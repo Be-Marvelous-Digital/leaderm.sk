@@ -5,3 +5,4 @@ dist-ssr/
 .playwright-mcp/
 .DS_Store
 *.log
+release/

@@ -43,6 +43,8 @@ Lokálna kontrola buildu: `php -S 127.0.0.1:8080 api/router-dev.php` → http://
 
 ## Nasadenie na WebSupport
 
+`npm run release` spraví build a pripraví priečinok `release/` presne v štruktúre pre hosting (`web/`, `config/`, `bin/`, `schema.sql`). Celý `leader-web` na FTP **nenahrávaj**.
+
 Štruktúra na hostingu (koreň FTP; webroot domény býva priečinok `web/` – over vo WebAdmine):
 
 ```
