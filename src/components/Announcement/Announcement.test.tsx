@@ -40,7 +40,7 @@ describe('AnnouncementHost', () => {
   });
 
   it('dismissed version goes straight to bar', async () => {
-    localStorage.setItem('leaderm-ann-dismissed', '1:v1');
+    localStorage.setItem('leaderm-ann-dismissed', JSON.stringify({ key: '1:v1', at: Date.now() }));
     mockFetch(200, ann);
     render(<AnnouncementHost />);
     await screen.findByRole('region', { name: 'Oznam' });

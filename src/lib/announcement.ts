@@ -1,20 +1,22 @@
 export type Announcement = { id: number; title: string; body: string; startsAt: string; endsAt: string; version: string };
 
 const KEY = 'leaderm-ann-dismissed';
+export const DISMISS_TTL = 15 * 60 * 1000;
 
 export const dismissKey = (a: Pick<Announcement, 'id' | 'version'>) => `${a.id}:${a.version}`;
 
-export function isDismissed(a: Pick<Announcement, 'id' | 'version'>): boolean {
+export function isDismissed(a: Pick<Announcement, 'id' | 'version'>, now = Date.now()): boolean {
   try {
-    return localStorage.getItem(KEY) === dismissKey(a);
+    const { key, at } = JSON.parse(localStorage.getItem(KEY) ?? 'null') ?? {};
+    return key === dismissKey(a) && typeof at === 'number' && now - at < DISMISS_TTL;
   } catch {
     return false;
   }
 }
 
-export function markDismissed(a: Pick<Announcement, 'id' | 'version'>): void {
+export function markDismissed(a: Pick<Announcement, 'id' | 'version'>, now = Date.now()): void {
   try {
-    localStorage.setItem(KEY, dismissKey(a));
+    localStorage.setItem(KEY, JSON.stringify({ key: dismissKey(a), at: now }));
   } catch {
     // storage unavailable (private mode)
   }
