@@ -6,13 +6,20 @@
   .container();
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: clamp(20px, 3vw, 32px);
+  gap: clamp(40px, 6vw, 72px);
 }
 
-.h1 {
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: clamp(16px, 4vw, 64px);
+}
+
+.code {
   .serif();
-  font-size: clamp(120px, 26vw, 360px);
+  flex: none;
+  font-size: clamp(120px, 24vw, 320px);
   line-height: .82;
   letter-spacing: -.045em;
   margin: 0;
@@ -27,12 +34,70 @@
   > span { display: block; }
 }
 
-.text {
+.headText { flex: 1 1 360px; min-width: 0; padding-bottom: clamp(8px, 2vw, 32px); }
+
+.h1 {
+  .serif();
+  font-size: clamp(34px, 4.2vw, 56px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -.02em;
   margin: 0;
-  font-size: clamp(20px, 2.4vw, 28px);
-  line-height: 1.4;
-  color: @muted;
+  text-wrap: balance;
+  em { color: @terra; }
 }
+
+.text {
+  margin: 20px 0 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: @muted;
+  max-width: 520px;
+  text-wrap: pretty;
+}
+
+.links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 12px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+  padding: 24px;
+  border-radius: 24px;
+  background: @surface;
+  border: 1px solid @line;
+  color: @ink;
+  transition: border-color .3s, transform .3s @ease, box-shadow .3s;
+  &:hover {
+    color: @ink;
+    border-color: @line-3;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px -20px rgba(42, 33, 28, .35);
+    .arrow { transform: translateX(4px); color: @terra; }
+  }
+}
+
+.cardLabel {
+  .serif();
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.arrow { font-family: inherit; font-size: 22px; color: @muted; transition: transform .3s @ease, color .3s; }
+
+.cardDesc { font-size: 15px; line-height: 1.5; color: @muted; }
 
 .actions {
   display: flex;
@@ -59,4 +124,7 @@
   &:hover { color: @terra; border-bottom-color: @terra; }
 }
 
-@media @{reduced} { .btn:hover { transform: none; } }
+@media @{reduced} {
+  .btn:hover, .card:hover { transform: none; }
+  .card, .arrow { transition: none; }
+}

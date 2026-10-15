@@ -79,7 +79,7 @@ export const PRICE_A: PriceRow[] = [
   ['Vyšetrenie pre komerčné poisťovne', '100 €'],
   ['Výpis zo zdravotnej dokumentácie na žiadosť pacienta', '20 €'],
   ['Preventívne vyšetrenie melanocytových névov (konvenčný dermatoskop)', '50 €'],
-  ['Celotelové vyšetrenie melanocytových névov (digitálny dermatoskop)', '100 €'],
+  ['Celotelové vyšetrenie melanocytových névov (digitálny dermatoskop FotoFinder)', '100 €'],
   ['Vyšetrenie melanocytových névov pred odstránením z kozmetických dôvodov', '10 € / ks'],
 ];
 

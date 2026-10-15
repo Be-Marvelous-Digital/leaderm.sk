@@ -14,7 +14,7 @@ const AREAS: [string, string, string, string[]][] = [
 
 const MOLES: [string, string, string, number][] = [
   ['Preventívne vyšetrenie melanocytových névov', '50 €', 'konvenčný dermatoskop', 0],
-  ['Celotelové vyšetrenie melanocytových névov', '100 €', 'digitálny dermatoskop', 40],
+  ['Celotelové vyšetrenie melanocytových névov', '100 €', 'digitálny dermatoskop FotoFinder', 40],
   ['Vyšetrenie névov pred odstránením z kozmetických dôvodov', '10 €', 'za 1 kus', 80],
   ['Laserové odstránenie znamienok, výrastkov, lézií a névov', 'od 50 €', 'prvý kus 50 €, každý ďalší pri tom istom sedení 30 €', 160],
   ['Odstránenie útvarov kože kryalizáciou alebo elektrokauterom', 'od 10 €', 'kryalizácia (tekutým dusíkom) aj elektrokauter od 10 €', 240],
@@ -44,7 +44,7 @@ export default function Liecba() {
             </div>
           </div>
           <div className={s.heroImg} data-reveal="" data-d="200">
-            <Img name="lupa" alt="Vyšetrenie pokožky" width={1200} height={1500} priority sizes="(min-width: 900px) 40vw, 100vw" className={s.cover} />
+            <Img name="fotofinder" alt="MUDr. Iveta Kupcová s digitálnym dermatoskopom FotoFinder" width={1536} height={2048} priority sizes="(min-width: 900px) 40vw, 100vw" className={s.cover} style={{ objectPosition: '40% 30%' }} />
           </div>
         </div>
       </section>

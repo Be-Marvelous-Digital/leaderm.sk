@@ -16,4 +16,10 @@ foreach ([$rel, rtrim($rel, '/') . '/index.html'] as $candidate) {
         return true;
     }
 }
+if (is_file($dist . '/404.html')) {
+    http_response_code(404);
+    header('Content-Type: text/html; charset=utf-8');
+    readfile($dist . '/404.html');
+    return true;
+}
 return false;

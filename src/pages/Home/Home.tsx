@@ -84,6 +84,12 @@ function Quote() {
   );
 }
 
+const FOTOFINDER: [string, string][] = [
+  ['Zväčšený detail', 'Videodermatoskop medicam 1000 ukáže farby a štruktúry kože, ktoré voľným okom nevidno.'],
+  ['Porovnanie v čase', 'Snímky sa ukladajú, takže pri ďalšej kontrole lekárka presne vidí, čo sa zmenilo.'],
+  ['Bez bolesti', 'Kamera sa len priloží na kožu. Vyšetrenie nevyžaduje žiadnu prípravu.'],
+];
+
 export default function Home() {
   return (
     <Layout active="home" fixedNav footerOnDark>
@@ -126,7 +132,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <a href={ECAKAREN.profile} target="_blank" rel="noopener" className={s.cardCtaDark}>Prihlásiť sa na vyšetrenie →</a>
+              <a href={ECAKAREN.profile} target="_blank" rel="noopener" className={`${s.cardCtaDark} ${s.fotoCta}`}>Prihlásiť sa na vyšetrenie →</a>
               <a href={PATHS.liecba} className={s.cardLink}>Všetko o liečbe</a>
             </article>
             <article id="estetika" data-reveal="" data-d="120" className={`${s.card} ${s.cardAesthetic}`}>
@@ -166,6 +172,31 @@ export default function Home() {
           </div>
           <div data-reveal="" data-d="150" className={s.molesImgBox}>
             <Img name="znamienka" alt="Vyšetrenie znamienok na koži" width={1600} height={1067} sizes="(min-width: 900px) 50vw, 100vw" className={s.cover} />
+          </div>
+        </div>
+      </section>
+
+      <section className={s.foto} aria-labelledby="fotofinder">
+        <div className={s.fotoGrid}>
+          <div data-reveal="" className={s.fotoImgBox}>
+            <Img name="fotofinder" alt="MUDr. Iveta Kupcová s digitálnym dermatoskopom FotoFinder" width={1536} height={2048} sizes="(min-width: 900px) 45vw, 100vw" className={`${s.cover} ${s.fotoImg}`} />
+          </div>
+          <div className={s.fotoText}>
+            <div data-reveal="" className={s.eyebrow}>Digitálna dermatoskopia</div>
+            <h2 id="fotofinder" data-reveal="" data-d="100" className={s.fotoTitle}>Koža pod drobnohľadom s&nbsp;<em>FotoFinderom.</em></h2>
+            <p data-reveal="" data-d="200" className={s.fotoLead}>Sme jednou z troch ambulancií na Slovensku, ktoré vlastnia digitálny dermatoskop FotoFinder. Prístroj od nemeckého výrobcu sa používa na kožných klinikách po celom svete.</p>
+            <ul className={s.fotoList}>
+              {FOTOFINDER.map(([t, d], i) => (
+                <li key={t} data-reveal="" data-d={String(250 + i * 80)} className={s.fotoItem}>
+                  <span className={s.fotoItemTitle}>{t}</span>
+                  <span className={s.fotoItemText}>{d}</span>
+                </li>
+              ))}
+            </ul>
+            <div data-reveal="" data-d="500" className={s.fotoFoot}>
+              <div><div className={s.fotoPrice}>100 €</div><div className={s.fotoNote}>celotelové vyšetrenie digitálnym dermatoskopom</div></div>
+              <a href={ECAKAREN.profile} target="_blank" rel="noopener" className={`${s.cardCtaDark} ${s.fotoCta}`}>Prihlásiť sa na vyšetrenie →</a>
+            </div>
           </div>
         </div>
       </section>

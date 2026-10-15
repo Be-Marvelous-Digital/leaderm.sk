@@ -21,10 +21,10 @@ const CAREER: [string, string][] = [
   ['od 1997', 'Súkromná kožná ambulancia LEADERM, s.r.o., Galanta'],
 ];
 
-const GALLERY: [string, string][] = [
-  ['interier', 'Ambulancia'],
-  ['konzultacia', 'Konzultácia v ordinácii'],
-  ['laser', 'Laserové pracovisko'],
+const GALLERY: [string, string, number, number, string][] = [
+  ['areal-zdravia', 'Vstup do Areálu zdravia v Galante', 2048, 1536, '50% 60%'],
+  ['ambulancia', 'Ambulancia LEADERM', 3024, 4032, '50% 62%'],
+  ['ambulancia-lekarka', 'MUDr. Iveta Kupcová v ambulancii', 1536, 2048, '72% 45%'],
 ];
 
 export default function ONas() {
@@ -96,9 +96,9 @@ export default function ONas() {
             <p className={s.clinicP} data-reveal="">Areál zdravia v Galante. Zmluvné poisťovne Dôvera, VšZP a Union. Prevádzkovateľ LEADERM, s.r.o.</p>
           </div>
           <ul className={s.gallery}>
-            {GALLERY.map(([name, alt], i) => (
+            {GALLERY.map(([name, alt, w, h, pos], i) => (
               <li key={name} className={s.galleryItem} data-reveal="" data-d={String(i * 80)}>
-                <Img name={name} alt={alt} width={1600} height={1067} sizes="(min-width: 900px) 33vw, 100vw" className={s.cover} />
+                <Img name={name} alt={alt} width={w} height={h} sizes="(min-width: 900px) 33vw, 100vw" className={s.cover} style={{ objectPosition: pos }} />
               </li>
             ))}
           </ul>

@@ -4,11 +4,6 @@
     "source": "https://unsplash.com/photos/a-close-up-of-a-person-looking-through-a-magnifying-glass-PNdOpC-6q-I",
     "license": "Unsplash License"
   },
-  "lupa": {
-    "photographer": "Nate Johnston",
-    "source": "https://unsplash.com/photos/a-person-in-a-white-coat-5CXYcw7ykV8",
-    "license": "Unsplash License"
-  },
   "skincare": {
     "photographer": "Juls P",
     "source": "https://unsplash.com/photos/person-in-white-long-sleeve-shirt-AyqNM8D2aEI",
@@ -22,7 +17,8 @@
   "deti": {
     "photographer": "CDC",
     "source": "https://unsplash.com/photos/a-young-child-is-being-examined-by-a-doctor-fx9RJgZYRUE",
-    "license": "Unsplash License"
+    "license": "Unsplash License",
+    "note": "upravená verzia"
   },
   "injekcia-brada": {
     "photographer": "Studio Michael França",
@@ -37,16 +33,6 @@
   "peel-doctor": {
     "photographer": "Rosa Rafael",
     "source": "https://unsplash.com/photos/woman-receiving-facial-mask-treatment-at-spa-Pe9IXUuC6QU",
-    "license": "Unsplash License"
-  },
-  "interier": {
-    "photographer": "kimia kazemi",
-    "source": "https://unsplash.com/photos/a-room-with-a-table-chairs-and-a-clock-ixvrfJWCy3A",
-    "license": "Unsplash License"
-  },
-  "konzultacia": {
-    "photographer": "Vitaly Gariev",
-    "source": "https://unsplash.com/photos/doctor-consults-with-patient-in-medical-office-iyeUwItlIPk",
     "license": "Unsplash License"
   }
 }

@@ -39,7 +39,7 @@ function Marquee() {
       <div className={s.marqueeBand}>
         <div ref={ref} className={s.marquee}>
           {[...MARQUEE, ...MARQUEE].map((m, i) => (
-            <span key={i} className={s.marqueeItem}><span>{m}</span><span className={s.marqueeStar}>✳</span></span>
+            <span key={i} className={s.marqueeItem}><span>{m}</span><svg className={s.marqueeStar} viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1" /></svg></span>
           ))}
         </div>
       </div>

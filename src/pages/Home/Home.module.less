@@ -164,7 +164,7 @@
   color: @surface;
 }
 .marqueeItem { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 32px); padding-right: clamp(18px, 2.4vw, 32px); }
-.marqueeStar { font-style: normal; font-size: .6em; opacity: .7; }
+.marqueeStar { flex: none; width: .5em; height: .5em; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; fill: none; opacity: .7; }
 
 @media @{reduced} {
   .heroFrame, .heroImgs { transition: none; }
@@ -303,6 +303,36 @@
 .molesNum { font-family: @serif; font-size: 44px; line-height: 1; }
 .molesNote { font-size: 14px; color: @cream-a; margin-top: 6px; }
 .molesImgBox { height: clamp(360px, 44vw, 560px); border-radius: 28px; overflow: hidden; background: @dark-2; }
+
+// FotoFinder
+.foto { padding: clamp(72px, 10vw, 128px) 24px 0; }
+.fotoGrid {
+  .container();
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+  gap: clamp(40px, 6vw, 88px);
+  align-items: center;
+}
+.fotoImgBox { aspect-ratio: 4 / 5; max-height: 680px; border-radius: 28px; overflow: hidden; background: @sand; }
+.fotoImg { object-position: 40% 30%; }
+.fotoTitle {
+  .serif();
+  font-size: clamp(44px, 5.6vw, 80px);
+  line-height: 1;
+  letter-spacing: -.02em;
+  margin: 16px 0 0;
+  text-wrap: balance;
+  em { color: @terra; }
+}
+.fotoLead { font-size: 18px; line-height: 1.6; color: @muted; margin: 24px 0 0; max-width: 540px; text-wrap: pretty; }
+.fotoList { list-style: none; margin: 36px 0 0; padding: 0; display: flex; flex-direction: column; }
+.fotoItem { display: grid; gap: 4px; padding: 18px 0; border-top: 1px solid @line; &:last-child { border-bottom: 1px solid @line; } }
+.fotoItemTitle { font-weight: 600; font-size: 17px; }
+.fotoItemText { color: @muted; font-size: 15px; line-height: 1.55; }
+.fotoFoot { display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: center; justify-content: space-between; margin-top: 36px; }
+.fotoPrice { font-family: @serif; font-size: 44px; line-height: 1; color: @terra-dark; }
+.fotoNote { font-size: 14px; color: @muted; margin-top: 6px; }
+.fotoCta { align-self: center; margin-top: 0; }
 
 // 05 Explainer
 .explainer { padding: clamp(72px, 10vw, 128px) 24px 64px; }
