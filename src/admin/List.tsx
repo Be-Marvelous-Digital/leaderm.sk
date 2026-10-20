@@ -15,11 +15,15 @@ type Pending = { kind: 'end' | 'remove'; item: Announcement };
 
 const toDate = (s: string) => new Date(s.replace(' ', 'T'));
 
-export function statusOf(a: Pick<Announcement, 'startsAt' | 'endsAt'>, now = new Date()): Status {
+const showsAt = (a: Pick<Announcement, 'startsAt' | 'showsFrom'>) => a.showsFrom ?? a.startsAt;
+
+export function statusOf(a: Pick<Announcement, 'startsAt' | 'endsAt' | 'showsFrom'>, now = new Date()): Status {
   if (toDate(a.endsAt) < now) return 'ended';
-  if (toDate(a.startsAt) > now) return 'scheduled';
+  if (toDate(showsAt(a)) > now) return 'scheduled';
   return 'active';
 }
+
+const shortDay = (s: string) => { const [, m, d] = s.slice(0, 10).split('-').map(Number); return `${d}. ${m}.`; };
 
 const PILL: Record<Status, { label: string; cls: string }> = {
   active: { label: 'Zobrazuje sa', cls: styles.pillActive },
@@ -52,7 +56,7 @@ export function List({ flash, onNew, onEdit, onAuthLost }: Props) {
   const now = new Date();
   const groups: Record<Status, Announcement[]> = { active: [], scheduled: [], ended: [] };
   for (const a of items ?? []) groups[statusOf(a, now)].push(a);
-  groups.scheduled.sort((a, b) => a.startsAt.localeCompare(b.startsAt));
+  groups.scheduled.sort((a, b) => showsAt(a).localeCompare(showsAt(b)));
   groups.ended = groups.ended.sort((a, b) => b.endsAt.localeCompare(a.endsAt)).slice(0, 10);
 
   const run = async () => {
@@ -83,6 +87,7 @@ export function List({ flash, onNew, onEdit, onAuthLost }: Props) {
                 <div className={styles.itemMeta}>
                   <span className={`${styles.pill} ${PILL[key].cls}`}>{PILL[key].label}</span>
                   <span className={styles.range}>{formatRange(a)}</span>
+                  {key === 'scheduled' && <span className={styles.range}>na webe od {shortDay(showsAt(a))}</span>}
                 </div>
                 <h3 className={styles.itemTitle}>{a.title}</h3>
                 <p className={styles.itemBody}>{a.body}</p>

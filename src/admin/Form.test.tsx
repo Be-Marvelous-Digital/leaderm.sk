@@ -50,7 +50,7 @@ describe('Form', () => {
     await userEvent.type(screen.getByLabelText('Text oznamu'), 'Ambulancia bude zatvorená.');
     setDates('2030-01-10', '2030-01-12');
     await userEvent.click(screen.getByRole('button', { name: 'Uložiť oznam' }));
-    expect(api.create).toHaveBeenCalledWith({ title: 'Dovolenka', body: 'Ambulancia bude zatvorená.', startsOn: '2030-01-10', endsOn: '2030-01-12' });
+    expect(api.create).toHaveBeenCalledWith(expect.objectContaining({ title: 'Dovolenka', body: 'Ambulancia bude zatvorená.', startsOn: '2030-01-10', endsOn: '2030-01-12' }));
     expect(onSaved).toHaveBeenCalled();
   });
 
@@ -62,6 +62,30 @@ describe('Form', () => {
     setDates('2030-01-10', '2030-01-12');
     await userEvent.click(screen.getByRole('button', { name: 'Uložiť oznam' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('Prekrýva sa s iným oznamom.');
+  });
+
+  it('preset shows announcement a week ahead', async () => {
+    vi.mocked(api.create).mockResolvedValue({ id: 1, title: 'D', body: 'T', startsAt: '', endsAt: '', version: 'x' });
+    setup();
+    await userEvent.type(screen.getByLabelText('Nadpis'), 'Dovolenka');
+    await userEvent.type(screen.getByLabelText('Text oznamu'), 'Text');
+    setDates('2030-01-10', '2030-01-12');
+    await userEvent.click(screen.getByRole('button', { name: 'Týždeň vopred' }));
+    expect(screen.getByLabelText('Zobrazovať na webe od')).toHaveValue('2030-01-03');
+    expect(screen.getByText(/Na webe od štvrtka 3\. 1\. 2030/)).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Uložiť oznam' }));
+    expect(api.create).toHaveBeenCalledWith(expect.objectContaining({ showsFrom: '2030-01-03' }));
+  });
+
+  it('showing after the period ends is rejected', async () => {
+    setup();
+    await userEvent.type(screen.getByLabelText('Nadpis'), 'Dovolenka');
+    await userEvent.type(screen.getByLabelText('Text oznamu'), 'Text');
+    setDates('2030-01-10', '2030-01-12');
+    fireEvent.change(screen.getByLabelText('Zobrazovať na webe od'), { target: { value: '2030-01-20' } });
+    await userEvent.click(screen.getByRole('button', { name: 'Uložiť oznam' }));
+    expect(screen.getByText(/najneskôr v posledný deň/)).toBeInTheDocument();
+    expect(api.create).not.toHaveBeenCalled();
   });
 
   it('live preview reflects title', async () => {

@@ -30,7 +30,7 @@ export async function request<T>(method: string, path: string, body?: unknown): 
 }
 
 export type Me = { user: { name: string; email: string }; csrf: string };
-export type AnnInput = { title: string; body: string; startsOn: string; endsOn: string };
+export type AnnInput = { title: string; body: string; startsOn: string; endsOn: string; showsFrom: string };
 
 export const api = {
   me: () => request<Me>('GET', '/auth/me'),

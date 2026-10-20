@@ -54,4 +54,21 @@ t('deleted does not block overlap', function () {
     ann_create(['title' => 'C', 'body' => 'D', 'startsOn' => '2031-01-05', 'endsOn' => '2031-01-06'], $u);
     eq(true, true);
 });
+t('validate defaults showsFrom to start', fn() => eq(ann_validate(['title' => 'a', 'body' => 'x', 'startsOn' => '2026-10-10', 'endsOn' => '2026-10-11'])['shows_from'], '2026-10-10 00:00:00'));
+t('validate rejects showsFrom after end', fn() => throws(fn() => ann_validate(['title' => 'a', 'body' => 'x', 'startsOn' => '2026-10-10', 'endsOn' => '2026-10-11', 'showsFrom' => '2026-10-12']), 422));
+t('shown before the period starts', function () {
+    $u = make_user();
+    $id = ann_create(['title' => 'A', 'body' => 'B', 'startsOn' => date('Y-m-d', strtotime('+5 days')), 'endsOn' => date('Y-m-d', strtotime('+7 days')), 'showsFrom' => date('Y-m-d')], $u);
+    eq(ann_active()['id'] ?? null, $id);
+});
+t('not shown before showsFrom', function () {
+    $u = make_user();
+    $id = ann_create(['title' => 'A', 'body' => 'B', 'startsOn' => date('Y-m-d'), 'endsOn' => date('Y-m-d', strtotime('+7 days')), 'showsFrom' => date('Y-m-d', strtotime('+2 days'))], $u);
+    eq(ann_active(), null);
+});
+t('display window counts for overlap', function () {
+    $u = make_user();
+    $id = ann_create(['title' => 'A', 'body' => 'B', 'startsOn' => '2032-01-01', 'endsOn' => '2032-01-05'], $u);
+    throws(fn() => ann_create(['title' => 'C', 'body' => 'D', 'startsOn' => '2032-01-10', 'endsOn' => '2032-01-12', 'showsFrom' => '2032-01-03'], $u), 409);
+});
 t('missing id is 404', fn() => throws(fn() => ann_end_now(999999), 404));

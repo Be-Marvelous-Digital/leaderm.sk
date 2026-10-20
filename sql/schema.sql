@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS announcements (
   body TEXT NOT NULL,
   starts_at DATETIME NOT NULL,
   ends_at DATETIME NOT NULL,
+  shows_from DATETIME NULL,
   deleted_at DATETIME NULL,
   created_by INT UNSIGNED NOT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -45,3 +46,5 @@ CREATE TABLE IF NOT EXISTS trusted_devices (
 
 -- Migrácia existujúcej databázy (2026-10-12). Bezpečné spustiť opakovane.
 ALTER TABLE users ADD COLUMN IF NOT EXISTS session_version INT UNSIGNED NOT NULL DEFAULT 0;
+-- Migrácia (2026-10-20): od kedy sa oznam zobrazuje na webe (NULL = od starts_at).
+ALTER TABLE announcements ADD COLUMN IF NOT EXISTS shows_from DATETIME NULL AFTER ends_at;

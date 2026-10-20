@@ -2,7 +2,7 @@ import { useId, useRef, useState, type FormEvent } from 'react';
 import type { Announcement } from '../lib/announcement';
 import { api, ApiError, AuthError, type AnnInput } from './api';
 import { Preview } from './Preview';
-import { BODY_MAX, TITLE_MAX, charCount, normalize, todayIso, validate, type FieldErrors } from './validate';
+import { BODY_MAX, TITLE_MAX, addDays, charCount, dayGenitive, daysBetween, isValidDate, normalize, relativeDays, todayIso, validate, type FieldErrors } from './validate';
 import styles from './admin.module.less';
 
 type Props = {
@@ -12,14 +12,14 @@ type Props = {
   onAuthLost: () => void;
 };
 
-const ORDER: (keyof AnnInput)[] = ['title', 'body', 'startsOn', 'endsOn'];
+const ORDER: (keyof AnnInput)[] = ['title', 'body', 'startsOn', 'endsOn', 'showsFrom'];
 
 export function Form({ item, onSaved, onCancel, onAuthLost }: Props) {
   const today = todayIso();
   const [value, setValue] = useState<AnnInput>(() =>
     item
-      ? { title: item.title, body: item.body, startsOn: item.startsAt.slice(0, 10), endsOn: item.endsAt.slice(0, 10) }
-      : { title: '', body: '', startsOn: today, endsOn: today },
+      ? { title: item.title, body: item.body, startsOn: item.startsAt.slice(0, 10), endsOn: item.endsAt.slice(0, 10), showsFrom: (item.showsFrom ?? item.startsAt).slice(0, 10) }
+      : { title: '', body: '', startsOn: today, endsOn: today, showsFrom: today },
   );
   const [errors, setErrors] = useState<FieldErrors>({});
   const [serverError, setServerError] = useState('');
@@ -30,6 +30,7 @@ export function Form({ item, onSaved, onCancel, onAuthLost }: Props) {
     body: useRef<HTMLTextAreaElement>(null),
     startsOn: useRef<HTMLInputElement>(null),
     endsOn: useRef<HTMLInputElement>(null),
+    showsFrom: useRef<HTMLInputElement>(null),
   };
 
   const set = (k: keyof AnnInput) => (e: { target: { value: string } }) => {
@@ -62,6 +63,26 @@ export function Form({ item, onSaved, onCancel, onAuthLost }: Props) {
   }
 
   const id = (k: string) => `${uid}-${k}`;
+
+  const datesOk = isValidDate(value.startsOn) && isValidDate(value.endsOn) && value.endsOn >= value.startsOn;
+  const presets: [string, string | null][] = [
+    ['Hneď', today],
+    ['Týždeň vopred', datesOk && addDays(value.startsOn, -7) >= today ? addDays(value.startsOn, -7) : null],
+    ['V deň začiatku', datesOk && value.startsOn >= today ? value.startsOn : null],
+  ];
+  const pick = (d: string) => {
+    setValue((p) => ({ ...p, showsFrom: d }));
+    if (errors.showsFrom) setErrors((p) => ({ ...p, showsFrom: undefined }));
+  };
+
+  let summary = '';
+  if (datesOk && isValidDate(value.showsFrom) && value.showsFrom <= value.endsOn) {
+    const until = `do ${dayGenitive(value.endsOn)}`.replace(/\.?$/, '.');
+    summary = value.showsFrom <= today
+      ? `Na webe hneď po uložení, ${until}`
+      : `Na webe od ${dayGenitive(value.showsFrom)} (${relativeDays(daysBetween(today, value.showsFrom))}) ${until}`;
+    if (value.showsFrom > value.startsOn) summary += ' Pozor, to je až po začiatku obdobia.';
+  }
   const describe = (k: keyof AnnInput, extra?: string) => [extra, errors[k] ? id(`${k}-err`) : ''].filter(Boolean).join(' ') || undefined;
   const fieldError = (k: keyof AnnInput) =>
     errors[k] ? <p id={id(`${k}-err`)} className={styles.fieldError}>{errors[k]}</p> : null;
@@ -115,41 +136,79 @@ export function Form({ item, onSaved, onCancel, onAuthLost }: Props) {
           {fieldError('body')}
         </div>
 
-        <div className={styles.dates}>
-          <div className={styles.field}>
-            <label htmlFor={id('from')}>Dátum od</label>
+        <fieldset className={styles.fieldset}>
+          <legend className={styles.legend}>Obdobie</legend>
+          <p className={styles.hint}>Tieto dátumy uvidia návštevníci v ozname. Po poslednom dni oznam z webu zmizne.</p>
+          <div className={styles.dates}>
+            <div className={styles.field}>
+              <label htmlFor={id('from')}>Dátum od</label>
+              <input
+                ref={refs.startsOn}
+                id={id('from')}
+                type="date"
+                className={styles.input}
+                value={value.startsOn}
+                onChange={set('startsOn')}
+                min={item ? undefined : today}
+                required
+                aria-invalid={errors.startsOn ? true : undefined}
+                aria-describedby={describe('startsOn')}
+              />
+              {fieldError('startsOn')}
+            </div>
+            <div className={styles.field}>
+              <label htmlFor={id('to')}>Dátum do</label>
+              <input
+                ref={refs.endsOn}
+                id={id('to')}
+                type="date"
+                className={styles.input}
+                value={value.endsOn}
+                onChange={set('endsOn')}
+                min={value.startsOn || today}
+                required
+                aria-invalid={errors.endsOn ? true : undefined}
+                aria-describedby={describe('endsOn')}
+              />
+              {fieldError('endsOn')}
+            </div>
+          </div>
+        </fieldset>
+
+        <div className={styles.field}>
+          <label htmlFor={id('shows')}>Zobrazovať na webe od</label>
+          <div className={styles.showsRow}>
             <input
-              ref={refs.startsOn}
-              id={id('from')}
+              ref={refs.showsFrom}
+              id={id('shows')}
               type="date"
-              className={styles.input}
-              value={value.startsOn}
-              onChange={set('startsOn')}
+              className={`${styles.input} ${styles.showsInput}`}
+              value={value.showsFrom}
+              onChange={set('showsFrom')}
               min={item ? undefined : today}
+              max={isValidDate(value.endsOn) ? value.endsOn : undefined}
               required
-              aria-invalid={errors.startsOn ? true : undefined}
-              aria-describedby={describe('startsOn')}
+              aria-invalid={errors.showsFrom ? true : undefined}
+              aria-describedby={describe('showsFrom', id('shows-sum'))}
             />
-            {fieldError('startsOn')}
+            <div className={styles.quick} role="group" aria-label="Rýchly výber">
+              {presets.map(([label, d]) => (
+                <button
+                  key={label}
+                  type="button"
+                  className={styles.quickBtn}
+                  aria-pressed={d !== null && d === value.showsFrom}
+                  disabled={d === null}
+                  onClick={() => d && pick(d)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className={styles.field}>
-            <label htmlFor={id('to')}>Dátum do</label>
-            <input
-              ref={refs.endsOn}
-              id={id('to')}
-              type="date"
-              className={styles.input}
-              value={value.endsOn}
-              onChange={set('endsOn')}
-              min={value.startsOn || today}
-              required
-              aria-invalid={errors.endsOn ? true : undefined}
-              aria-describedby={describe('endsOn')}
-            />
-            {fieldError('endsOn')}
-          </div>
+          <p id={id('shows-sum')} className={styles.summary} aria-live="polite">{summary}</p>
+          {fieldError('showsFrom')}
         </div>
-        <p className={styles.hint}>Oznam sa zobrazuje celé dni — od začiatku prvého dňa do konca posledného.</p>
 
         <div className={styles.actions}>
           <button type="submit" className={styles.btnPrimary} disabled={busy}>

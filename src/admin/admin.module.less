@@ -422,6 +422,62 @@
 
 .form-head .h1 { font-size: clamp(36px, 4.4vw, 52px); }
 
+.fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legend {
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: @ink;
+  + .hint { margin-top: -4px; }
+}
+
+.shows-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.shows-input { flex: 1 1 180px; width: auto; }
+
+.quick { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.quick-btn {
+  .pill();
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1.5px solid @line-2;
+  background: transparent;
+  color: @ink;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, color .15s;
+
+  &:hover:not(:disabled) { border-color: @ink; }
+  &:focus-visible { outline: 2px solid @terra; outline-offset: 2px; }
+  &[aria-pressed='true'] { background: @ink; border-color: @ink; color: @surface; }
+  &:disabled { opacity: .4; cursor: not-allowed; }
+}
+
+.summary {
+  margin: 0;
+  min-height: 1.5em;
+  font-size: 14px;
+  line-height: 1.5;
+  color: @muted;
+  &:empty { display: none; }
+}
+
 .dates {
   display: grid;
   gap: 16px;

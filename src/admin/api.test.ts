@@ -26,13 +26,13 @@ describe('admin api', () => {
 
   it('non-GET sends CSRF token and JSON body', async () => {
     const f = mockFetch(201, { id: 5 });
-    await api.create({ title: 'A', body: 'B', startsOn: '2026-10-10', endsOn: '2026-10-11' });
+    await api.create({ title: 'A', body: 'B', startsOn: '2026-10-10', endsOn: '2026-10-11', showsFrom: '2026-10-01' });
     const [url, init] = f.mock.calls[0];
     expect(url).toBe('/api/admin/announcements');
     expect(init.method).toBe('POST');
     expect(init.headers['X-CSRF-Token']).toBe('tok123');
     expect(init.headers['Content-Type']).toBe('application/json');
-    expect(JSON.parse(init.body)).toEqual({ title: 'A', body: 'B', startsOn: '2026-10-10', endsOn: '2026-10-11' });
+    expect(JSON.parse(init.body)).toEqual({ title: 'A', body: 'B', startsOn: '2026-10-10', endsOn: '2026-10-11', showsFrom: '2026-10-01' });
   });
 
   it('DELETE without body still sends CSRF', async () => {

@@ -18,7 +18,7 @@ export function isValidDate(v: string): boolean {
 }
 
 export function normalize(a: AnnInput): AnnInput {
-  return { title: a.title.trim(), body: a.body.replace(/\r\n/g, '\n').trim(), startsOn: a.startsOn, endsOn: a.endsOn };
+  return { title: a.title.trim(), body: a.body.replace(/\r\n/g, '\n').trim(), startsOn: a.startsOn, endsOn: a.endsOn, showsFrom: a.showsFrom };
 }
 
 export function validate(raw: AnnInput): FieldErrors {
@@ -29,5 +29,26 @@ export function validate(raw: AnnInput): FieldErrors {
   if (!isValidDate(a.startsOn)) e.startsOn = 'Zadajte platný dátum začiatku.';
   if (!isValidDate(a.endsOn)) e.endsOn = 'Zadajte platný dátum konca.';
   else if (!e.startsOn && a.endsOn < a.startsOn) e.endsOn = 'Dátum „do“ musí byť rovnaký alebo neskorší ako „od“.';
+  if (!isValidDate(a.showsFrom)) e.showsFrom = 'Zadajte platný dátum.';
+  else if (!e.endsOn && a.showsFrom > a.endsOn) e.showsFrom = 'Oznam sa musí začať zobrazovať najneskôr v posledný deň obdobia.';
   return e;
+}
+
+const DAY = 86_400_000;
+const utc = (iso: string) => { const [y, m, d] = iso.split('-').map(Number) as [number, number, number]; return Date.UTC(y, m - 1, d); };
+
+export const addDays = (iso: string, n: number) => new Date(utc(iso) + n * DAY).toISOString().slice(0, 10);
+export const daysBetween = (from: string, to: string) => Math.round((utc(to) - utc(from)) / DAY);
+
+const GEN = ['nedele', 'pondelka', 'utorka', 'stredy', 'štvrtka', 'piatka', 'soboty'];
+
+export function dayGenitive(iso: string, thisYear = new Date().getFullYear()): string {
+  const [y, m, d] = iso.split('-').map(Number) as [number, number, number];
+  return `${GEN[new Date(utc(iso)).getUTCDay()]} ${d}. ${m}.${y === thisYear ? '' : ` ${y}`}`;
+}
+
+export function relativeDays(n: number): string {
+  if (n === 0) return 'dnes';
+  if (n === 1) return 'zajtra';
+  return n >= 2 && n <= 4 ? `o ${n} dni` : `o ${n} dní`;
 }

@@ -1,4 +1,4 @@
-export type Announcement = { id: number; title: string; body: string; startsAt: string; endsAt: string; version: string };
+export type Announcement = { id: number; title: string; body: string; startsAt: string; endsAt: string; showsFrom?: string; version: string };
 
 const KEY = 'leaderm-ann-dismissed';
 export const DISMISS_TTL = 15 * 60 * 1000;

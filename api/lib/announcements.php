@@ -18,17 +18,20 @@ function ann_validate(array $in): array {
     $start = ann_date($in['startsOn'] ?? null, 'od');
     $end = ann_date($in['endsOn'] ?? null, 'do');
     if ($end < $start) throw new HttpError(422, 'Dátum „do“ musí byť rovnaký alebo neskorší ako „od“.');
+    $shows = ($in['showsFrom'] ?? '') === '' ? $start : ann_date($in['showsFrom'], 'zobrazovať od');
+    if ($shows > $end) throw new HttpError(422, 'Oznam sa musí začať zobrazovať najneskôr v posledný deň obdobia.');
     return [
         'title' => $title,
         'body' => $body,
         'starts_at' => $start->format('Y-m-d 00:00:00'),
         'ends_at' => $end->format('Y-m-d 23:59:59'),
+        'shows_from' => $shows->format('Y-m-d 00:00:00'),
     ];
 }
 
 function ann_assert_no_overlap(array $v, ?int $exceptId = null): void {
-    $sql = 'SELECT id FROM announcements WHERE deleted_at IS NULL AND starts_at <= ? AND ends_at >= ?';
-    $args = [$v['ends_at'], $v['starts_at']];
+    $sql = 'SELECT id FROM announcements WHERE deleted_at IS NULL AND COALESCE(shows_from, starts_at) <= ? AND ends_at >= ?';
+    $args = [$v['ends_at'], min($v['shows_from'], $v['starts_at'])];
     if ($exceptId) { $sql .= ' AND id <> ?'; $args[] = $exceptId; }
     $st = db()->prepare($sql . ' LIMIT 1');
     $st->execute($args);
@@ -42,6 +45,7 @@ function ann_row(array $r): array {
         'body' => $r['body'],
         'startsAt' => $r['starts_at'],
         'endsAt' => $r['ends_at'],
+        'showsFrom' => $r['shows_from'] ?? $r['starts_at'],
         'version' => substr(hash('sha256', $r['updated_at'] . $r['title'] . $r['body'] . $r['starts_at'] . $r['ends_at']), 0, 12),
     ];
 }
@@ -55,7 +59,7 @@ function ann_get(int $id): array {
 }
 
 function ann_active(): ?array {
-    $r = db()->query('SELECT * FROM announcements WHERE deleted_at IS NULL AND starts_at <= NOW() AND ends_at >= NOW() ORDER BY starts_at DESC LIMIT 1')->fetch();
+    $r = db()->query('SELECT * FROM announcements WHERE deleted_at IS NULL AND COALESCE(shows_from, starts_at) <= NOW() AND ends_at >= NOW() ORDER BY starts_at DESC LIMIT 1')->fetch();
     return $r ? ann_row($r) : null;
 }
 
@@ -67,8 +71,8 @@ function ann_list(): array {
 function ann_create(array $in, int $userId): int {
     $v = ann_validate($in);
     ann_assert_no_overlap($v);
-    db()->prepare('INSERT INTO announcements (title, body, starts_at, ends_at, created_by) VALUES (?, ?, ?, ?, ?)')
-        ->execute([$v['title'], $v['body'], $v['starts_at'], $v['ends_at'], $userId]);
+    db()->prepare('INSERT INTO announcements (title, body, starts_at, ends_at, shows_from, created_by) VALUES (?, ?, ?, ?, ?, ?)')
+        ->execute([$v['title'], $v['body'], $v['starts_at'], $v['ends_at'], $v['shows_from'], $userId]);
     return (int) db()->lastInsertId();
 }
 
@@ -76,13 +80,13 @@ function ann_update(int $id, array $in): void {
     ann_get($id);
     $v = ann_validate($in);
     ann_assert_no_overlap($v, $id);
-    db()->prepare('UPDATE announcements SET title = ?, body = ?, starts_at = ?, ends_at = ? WHERE id = ?')
-        ->execute([$v['title'], $v['body'], $v['starts_at'], $v['ends_at'], $id]);
+    db()->prepare('UPDATE announcements SET title = ?, body = ?, starts_at = ?, ends_at = ?, shows_from = ? WHERE id = ?')
+        ->execute([$v['title'], $v['body'], $v['starts_at'], $v['ends_at'], $v['shows_from'], $id]);
 }
 
 function ann_end_now(int $id): void {
     ann_get($id);
-    db()->prepare('UPDATE announcements SET ends_at = LEAST(ends_at, NOW() - INTERVAL 1 SECOND), starts_at = LEAST(starts_at, NOW() - INTERVAL 1 SECOND) WHERE id = ?')->execute([$id]);
+    db()->prepare('UPDATE announcements SET ends_at = LEAST(ends_at, NOW() - INTERVAL 1 SECOND), starts_at = LEAST(starts_at, NOW() - INTERVAL 1 SECOND), shows_from = LEAST(COALESCE(shows_from, starts_at), NOW() - INTERVAL 1 SECOND) WHERE id = ?')->execute([$id]);
 }
 
 function ann_delete(int $id): void {
