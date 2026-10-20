@@ -1,6 +1,6 @@
 @import '../../styles/tokens.less';
 
-.wrap { z-index: 50; top: 0; left: 0; right: 0; }
+.wrap { z-index: 58; top: 0; left: 0; right: 0; }
 .fixed { position: fixed; }
 .sticky { position: sticky; }
 
@@ -143,9 +143,15 @@
   display: flex;
   flex-direction: column;
   gap: 28px;
+  height: 100dvh;
   overflow: auto;
   &[hidden] { display: none; }
 }
+.menuIn { animation: nav-slide-in .5s @ease both; }
+.menuOut { animation: nav-slide-out .4s @ease-io both; }
+@keyframes nav-slide-in { from { transform: translateX(-100%); } to { transform: none; } }
+@keyframes nav-slide-out { from { transform: none; } to { transform: translateX(100%); } }
+@media @{reduced} { .menuIn, .menuOut { animation: none; } }
 .menuLinks { display: flex; flex-direction: column; }
 .menuLink {
   font-family: @serif;

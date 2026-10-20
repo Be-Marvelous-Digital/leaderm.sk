@@ -3,6 +3,7 @@ import { ECAKAREN, CONTACT, NAV, PATHS, type RouteKey } from '../../data/site';
 import { status } from '../../lib/hours';
 import { useMounted } from '../../hooks/useMounted';
 import { useScrollY } from '../../hooks/useScrollY';
+import { useReducedMotion } from '../../hooks/useMediaQuery';
 import s from './Nav.module.less';
 
 function Logo({ small }: { small?: boolean }) {
@@ -28,7 +29,13 @@ function OpenStatus({ className }: { className?: string }) {
 
 export function Nav({ active, fixed }: { active: RouteKey; fixed?: boolean }) {
   const y = useScrollY();
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenuState] = useState(false);
+  const [leaving, setLeaving] = useState(false);
+  const reduced = useReducedMotion();
+  const setMenu = (open: boolean) => {
+    setLeaving(!open && menu && !reduced);
+    setMenuState(open);
+  };
   const btnRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const scrolled = y > 40;
@@ -92,7 +99,14 @@ export function Nav({ active, fixed }: { active: RouteKey; fixed?: boolean }) {
             </button>
           </div>
         </div>
-        <div id="mobile-menu" ref={menuRef} className={s.menu} hidden={!menu}>
+        <div
+          id="mobile-menu"
+          ref={menuRef}
+          className={`${s.menu} ${menu ? s.menuIn : ''} ${leaving ? s.menuOut : ''}`}
+          hidden={!menu && !leaving}
+          inert={!menu}
+          onAnimationEnd={(e) => { if (e.target === e.currentTarget && !menu) setLeaving(false); }}
+        >
           <nav aria-label="Mobilná navigácia" className={s.menuLinks}>
             {NAV.map((l) => (
               <a key={l.key} href={PATHS[l.key]} className={`${s.menuLink} ${l.key === active ? s.menuActive : ''}`} aria-current={l.key === active ? 'page' : undefined} onClick={() => setMenu(false)}>
