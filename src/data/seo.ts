@@ -4,26 +4,26 @@ type Seo = { title: string; description: string; crumb?: string; noindex?: boole
 
 export const SEO: Record<RouteKey | 'notfound', Seo> = {
   home: {
-    title: 'Dermatológ Galanta – kožná ambulancia MUDr. Iveta Kupcová | Leaderm',
-    description: 'Kožná ambulancia v Areáli zdravia Galanta. Liečba kožných ochorení detí aj dospelých, kontrola znamienok, laser a estetika. Do poradia sa prihlásite online cez eČakáreň.',
+    title: 'Dermatológ Galanta – MUDr. Iveta Kupcová | Leaderm',
+    description: 'Kožná ambulancia v Areáli zdravia Galanta. Liečba kože detí aj dospelých, kontrola znamienok, laser a estetika. Do poradia online cez eČakáreň.',
   },
   liecba: {
-    title: 'Liečba kožných ochorení Galanta – kožné nádory, znamienka, akné | Leaderm',
-    description: 'Diagnostika a liečba ochorení kože, vlasov a nechtov pre deti aj dospelých. Kožné nádory, znamienka, pohlavné ochorenia. Hradené z verejného poistenia.',
+    title: 'Liečba kožných ochorení Galanta – znamienka, akné | Leaderm',
+    description: 'Diagnostika a liečba ochorení kože, vlasov a nechtov pre deti aj dospelých. Kožné nádory, znamienka, akné. Hradené z verejného poistenia.',
     crumb: 'Liečba',
   },
   estetika: {
-    title: 'Estetická dermatológia a laser Galanta – botox, výplne, peeling | Leaderm',
-    description: 'Kyselina hyalurónová, botulotoxín, chemický peeling a laserové ošetrenie znamienok, žiliek a pigmentácií. Zákroky vykonáva lekárka-dermatologička. Konzultácia 30 €.',
+    title: 'Estetika a laser Galanta – botox, výplne, peeling | Leaderm',
+    description: 'Kyselina hyalurónová, botulotoxín, chemický peeling a laser na znamienka, žilky a pigmentácie. Zákroky robí lekárka-dermatologička.',
     crumb: 'Estetika a laser',
   },
   objednanie: {
-    title: 'Objednanie k dermatológovi online cez eČakáreň | Leaderm Galanta',
+    title: 'Objednanie k dermatológovi cez eČakáreň | Leaderm Galanta',
     description: 'Ako sa prihlásiť do poradia z domu alebo po ceste a ako sa objednať na konkrétny termín v kožnej ambulancii MUDr. Ivety Kupcovej cez eČakáreň.',
     crumb: 'Ako sa objednať',
   },
   onas: {
-    title: 'O nás – MUDr. Iveta Kupcová, dermatologička Galanta | Leaderm',
+    title: 'O nás – MUDr. Iveta Kupcová, Galanta | Leaderm',
     description: 'Primárka s praxou od roku 1985 a atestáciou z dermatovenerológie a onkológie. Spoznajte tím a ambulanciu v Areáli zdravia Galanta.',
     crumb: 'O nás',
   },
@@ -33,7 +33,7 @@ export const SEO: Record<RouteKey | 'notfound', Seo> = {
     crumb: 'Cenník',
   },
   kontakt: {
-    title: 'Kontakt a ordinačné hodiny – dermatológ Galanta | Leaderm',
+    title: 'Kontakt a ordinačné hodiny, dermatológ Galanta | Leaderm',
     description: 'Kpt. Nálepku 727/13, Galanta. Telefón 0948 956 353, email leadermsro@gmail.com. Ordinačné hodiny a mapa.',
     crumb: 'Kontakt',
   },
@@ -52,7 +52,7 @@ export const SEO: Record<RouteKey | 'notfound', Seo> = {
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const clinic = {
-  '@type': ['MedicalClinic', 'Dermatology'],
+  '@type': 'MedicalClinic',
   '@id': `${SITE_URL}/#ambulancia`,
   name: 'LEADERM, s.r.o. – Kožná ambulancia MUDr. Iveta Kupcová',
   url: `${SITE_URL}/`,
@@ -103,6 +103,7 @@ export function renderHead(key: RouteKey | 'notfound'): string {
     '<meta name="theme-color" content="#F7F1EA">',
     '<meta property="og:type" content="website"><meta property="og:locale" content="sk_SK"><meta property="og:site_name" content="Leaderm">',
     `<meta property="og:title" content="${esc(s.title)}"><meta property="og:description" content="${esc(s.description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${SITE_URL}/og.jpg">`,
+    '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Leaderm, kožná ambulancia MUDr. Ivety Kupcovej v Galante">',
     '<meta name="twitter:card" content="summary_large_image">',
     `<script type="application/ld+json">${jsonld}</script>`,
   ].join('\n');
